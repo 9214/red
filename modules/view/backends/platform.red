@@ -235,6 +235,7 @@ system/view/platform: context [
 			text-list:		symbol/make "text-list"
 			progress:		symbol/make "progress"
 			slider:			symbol/make "slider"
+			stepper:		symbol/make "stepper"
 			drop-down:		symbol/make "drop-down"
 			drop-list:		symbol/make "drop-list"
 			_image:			symbol/make "image"

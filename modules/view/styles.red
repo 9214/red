@@ -58,6 +58,10 @@ Red [
 		default-actor: on-change
 		template: [type: 'slider size: 150x25 data: 0%]
 	]
+	stepper: [
+		default-actor: on-click
+		template: [type: 'stepper size: 100x30]
+	]
 	scroller: [
 		default-actor: on-change
 		template: [type: 'scroller size: 150x20 data: 0.0 steps: 0.1]

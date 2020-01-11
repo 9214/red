@@ -1810,6 +1810,12 @@ GPtrArray!: alias struct! [
 			radio 		[handle!]
 			return:		[handle!]
 		]
+		gtk_spin_button_new_with_range: "gtk_spin_button_new_with_range" [
+			min		[float!]
+			max		[float!]
+			step	[float!]
+			return: [handle!]
+		]
 		gtk_drawing_area_new: "gtk_drawing_area_new" [
 			return:		[handle!]
 		]
@@ -1888,6 +1894,10 @@ GPtrArray!: alias struct! [
 		gtk_entry_set_max_width_chars: "gtk_entry_set_max_width_chars" [
 			entry		[handle!]
 			nchars		[integer!]
+		]
+		gtk_entry_set_max_length: "gtk_entry_set_max_length" [
+			entry		[handle!]
+			max			[integer!]
 		]
 		gtk_entry_get_buffer: "gtk_entry_get_buffer" [
 			entry		[handle!]

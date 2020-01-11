@@ -1668,6 +1668,32 @@ OS-make-view: func [
 			gtk_scale_set_has_origin widget no
 			gtk_scale_set_draw_value widget no
 		]
+		sym = stepper [
+			widget: gtk_spin_button_new_with_range 0.0 0.0 1.0
+			
+			;== various attempts to remove the field from spin button
+			
+			;-- tweaking properties
+			gtk_entry_set_width_chars widget 0
+			gtk_entry_set_max_width_chars widget 0
+			gtk_entry_set_max_length widget 0
+			
+			;-- CSS styling
+			use [provider context style][
+				provider: gtk_css_provider_new
+				context:  gtk_widget_get_style_context widget
+				;-- negative values for margins and paddings are not supported
+				style: {
+					spinbutton.horizontal entry {
+						background-color: red;
+						margin: 0;
+						padding: 0;
+					}
+				}
+				gtk_css_provider_load_from_data provider style -1 null
+				gtk_style_context_add_provider context provider GTK_STYLE_PROVIDER_PRIORITY_APPLICATION
+			]
+		]
 		sym = text [
 			widget: gtk_label_new caption
 			;; gtk_label_set_width_chars widget ???
