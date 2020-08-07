@@ -1933,7 +1933,7 @@ lexer: context [
 		if flags and C_FLAG_SIGN <> 0 [p: p + 1]		;-- skip sign when present
 		cur: p
 		while [p/1 <> #"$"][p: p + 1]					;-- cur is always < e
-		either p = cur [cur: null][if cur + 3 <> p [do-error]]
+		if p = cur [cur: null]
 		
 		assert p/1 = #"$"
 		if any [p/2 = #"." p/2 = #"," p/2 = #"'"][do-error]

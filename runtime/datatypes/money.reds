@@ -461,7 +461,7 @@ money: context [
 		
 		;-- currency code
 		unless null? currency [
-			index: get-currency-index symbol/make-alt-utf8 currency 3
+			index: get-currency-index symbol/make-alt-utf8 currency as integer! start - currency
 			if negative? index [return null]		;-- throw it back to lexer for proper error reporting
 			set-currency money index
 		]
@@ -560,8 +560,7 @@ money: context [
 		;-- currency code
 		index: get-currency money
 		unless zero? index [						;-- generic currency
-			word/form get-currency-code index buffer stack/arguments part
-			part: part - 3
+			part: word/form get-currency-code index buffer stack/arguments part
 		]
 		
 		string/concatenate-literal buffer "$"
@@ -933,9 +932,7 @@ money: context [
 		while [not any [end? here/value = #"$"]][here: here + 1]
 		
 		if end? [here: currency]
-		either here = currency [currency: null][
-			if currency + 3 <> here [bail]			;-- invalid currency code won't pass symbol lookup in make-at, no need to check it here
-		]
+		if here = currency [currency: null]
 		
 		start: here - as integer! here/value <> #"$"
 		here:  start + 1
