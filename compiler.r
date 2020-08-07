@@ -1767,9 +1767,10 @@ red: context [
 				money? [
 					emit 'money/push
 					value: to string! next value
-					emit pick [true false] value/4 = #"-"
-					emit to-currency-code copy/part value 3
-					emit to-nibbles copy skip value 4
+					idx: find value #"$"
+					emit pick [true false] value/1 = #"-"
+					emit to-currency-code copy/part next value idx
+					emit to-nibbles copy next idx
 				]
 				ref? [
 					idx: redbin/emit-string/root next value	;-- issue! is an any-string! in Rebol2
@@ -4813,7 +4814,7 @@ red: context [
 	process-currencies: func [header [block!] /local spec c][
 		if block? spec: select header quote Currencies: [
 			foreach c spec [
-				if any [not word? c 3 <> length? form c][
+				if not word? c [
 					throw-error ["invalid header currencies field:" spec]
 				]
 			]
