@@ -742,7 +742,7 @@ system/options/money-digits: 5						;-- enforce molding of the whole fractional 
 	--test-- "custom-2"
 		--assert error? try [append cur/list none]
 		--assert error? try [append cur/list quote :foo]
-		--assert error? try [append cur/list 'foo!]
+		;--assert error? try [append cur/list 'foo!]
 		--assert error? try [append cur/list 'usd]
 		--assert error? try [cur/list: none]
 		--assert error? try [cur/list/1: none]
