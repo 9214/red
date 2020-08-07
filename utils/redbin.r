@@ -181,14 +181,15 @@ context [
 		emit to integer! copy/part head bin 4
 	]
 	
-	emit-money: func [value [issue!] /local bin header][
+	emit-money: func [value [issue!] /local bin idx header][
 		value: to string! next value
-		header: extracts/definitions/TYPE_MONEY or shift/left to-integer value/4 = #"-" 14
+		idx: find value #"$"
+		header: extracts/definitions/TYPE_MONEY or shift/left to-integer value/1 = #"-" 14
 		if nl? [header: header or nl-flag]
 		emit header
 		repend buffer [
-			either value/1 = #"." [null][to-char to-currency-code copy/part value 3]
-			to binary! to-nibbles copy/part skip value 4 22	;-- nibbles array
+			either value/2 = #"." [null][to-char to-currency-code copy/part next value idx]
+			to binary! to-nibbles copy next idx
 		]
 	]
 
