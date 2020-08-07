@@ -333,7 +333,6 @@ system: context [
 					not find [append appended] action
 					not word? :new
 					all [action = 'append any [find list new 255 < length? list]] ;-- limit index to 8-bit
-					3 <> length? form new
 				][cause-error 'script 'protected []]
 				
 				if action = 'appended [set-slot-quiet back tail list to word! uppercase form new]
