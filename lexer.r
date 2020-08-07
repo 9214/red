@@ -457,7 +457,7 @@ lexer: context [
 	
 	money-rule: [
 		(neg?: no) opt [#"-" (neg?: yes) | #"+"] 
-		s: opt [3 alpha] #"$" digit any [digit | #"'" digit] opt [[dot | comma] some digit]
+		s: any [alpha | digit] #"$" digit any [digit | #"'" digit] opt [[dot | comma] some digit]
 		e: (type: money!)
 	]
 	
@@ -842,9 +842,10 @@ lexer: context [
 	]
 	
 	load-money: func [s [string!] e [string!] neg? [logic!] /local cur dec pos][
-		if all [s/1 <> #"$" s/4 = #"$"][
-			cur: uppercase copy/part s 3
-			s: skip s 3
+		if s/1 <> #"$" [
+			pos: find s #"$"
+			cur: uppercase copy/part s pos
+			s: pos
 		]
 		s: copy/part next s e
 		remove-each c s [c = #"'"]
@@ -856,8 +857,8 @@ lexer: context [
 		insert/dup tail s #"0" 5 - dec
 		if 22 < length? s [throw-error]
 		insert/dup s #"0" 22 - length? s
+		insert insert s any [cur "..."] #"$"
 		insert s pick "-+" neg?
-		insert s any [cur "..."]
 		append join make issue! 1 + length? s #"$" s
 	]
 	
